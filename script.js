@@ -1,62 +1,63 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged ,sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDFOYhJda2FOCUdQVBlqp2gvnRjZYHeMQE",
-    authDomain: "sign-up-3b725.firebaseapp.com",
-    projectId: "sign-up-3b725",
-    storageBucket: "sign-up-3b725.appspot.com",
-    messagingSenderId: "278667485871",
-    appId: "1:278667485871:web:afd1ff12960181fb11ea5a",
-    measurementId: "G-L0EFG54WSM"
+  apiKey: "AIzaSyAdcTzIhWV_c947eoUGZmYw0P1PkSZqvvk",
+  authDomain: "auth-45438.firebaseapp.com",
+  projectId: "auth-45438",
+  storageBucket: "auth-45438.appspot.com",
+  messagingSenderId: "803246495829",
+  appId: "1:803246495829:web:4ae7914f609c41404d9cdc",
+  measurementId: "G-RLFPR07Q4Y"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const Analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
 
 // Sign Up
-document.getElementById("signup-btn")?.addEventListener('click', (e) => {
-    e.preventDefault();
-    let email = document.getElementById("signup-email").value;
-    let password = document.getElementById("signup-password").value;
+document.getElementById("signup-btn")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  let email = document.getElementById("signup-email").value;
+  let password = document.getElementById("signup-password").value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            alert("Sign-Up successfully!!");
-            window.location.href = "form.html";
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert("SignUp successful!");
+      window.location.href = "form.html";
+    })
+    .catch((error) => {
+      document.getElementById("message").innerText = error.message;
+    });
 });
 
 // Login
-document.getElementById("login-btn")?.addEventListener('click', (e) => {
-    e.preventDefault();
-    let email = document.getElementById('login-email').value;
-    let password = document.getElementById('login-password').value;
+document.getElementById("login-btn")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  let email = document.getElementById("login-email").value;
+  let password = document.getElementById("login-password").value;
 
-    signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            alert("Login successfully!!");
-            window.location.href = "form.html";
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
+  signInWithEmailAndPassword(auth, email, password )
+    .then(() => {
+      alert("Login Successful!");
+      window.location.href = "form.html";
+    })
+    .catch((error) => {
+      document.getElementById("message").innerText = error.message;
+    });
 });
 
 // Google Sign Up
 document.getElementById("google-signup-btn")?.addEventListener('click', () => {
     signInWithPopup(auth, provider)
         .then(() => {
-            alert("Login successfully!!");
+            alert("Signup successfully!!");
             window.location.href = "form.html";
         })
         .catch((error) => {
-            alert(error.message);
+            document.getElementById("message").innerText = error.message;
         });
 });
 
@@ -68,45 +69,40 @@ document.getElementById("google-login-btn")?.addEventListener('click', () => {
             window.location.href = "form.html";
         })
         .catch((error) => {
-            alert(error.message);
+            document.getElementById("message").innerText = error.message;
         });
 });
 
+
+// Logout
+document.getElementById("logout-btn")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  signOut(auth)
+    .then(() => {
+      alert("Logout Successful!");
+      window.location.href = "index.html";
+    })
+    .catch((error) => {
+        document.getElementById("message").innerText = error.message;
+    });
+});
+
+
 // Reset Password
-document.getElementById("reset-password-link")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    let email = prompt("Enter your email!");
+document.getElementById("reset-password")?.addEventListener('click' , (e) => {
+  e.preventDefault();
 
-    if (email) {
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                alert('Password reset email sent, check your inbox');
-            })
-            .catch((error) => {
-                alert(error.message);
-            });
-    } else {
-        alert('Please enter a valid email');
-    }
-});
-
-// Auth State Change
-onAuthStateChanged(auth, (user) => {
-    if (user && window.location.pathname.includes("welcome.html")) {
-        document.getElementById("user-email").textContent = user.email;
-    } else if (!user && window.location.pathname.includes("welcome.html")) {
-        window.location.href = "form.html";
-    }
-});
-
-// Logout 
-document.getElementById("logout-btn")?.addEventListener("click", () => {   
-    signOut(auth)     
-    .then(() => {       
-        alert("Logged Out Successfully!");       
-        window.location.href = "index.html"; // Redirect to the login page or home page     
-    })     
-    .catch((error) => {       
-        alert(error.message); // Show error message if sign out fails
-    }); 
-}); 
+  const email = prompt('Please enter a email address');
+  if(email){
+    sendPasswordResetEmail(auth , email)
+    .then(()=>{
+      alert("Password Reset ! <br>  Email Sent , Check Your Inbox")
+    })
+    .catch((error)=>{
+      document.getElementById("message").innerText = error.message;
+    })
+  }
+  else{
+      alert("Enter a valid Email Address!!")
+  }
+})
