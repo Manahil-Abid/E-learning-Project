@@ -1,19 +1,20 @@
- import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged ,sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAdcTzIhWV_c947eoUGZmYw0P1PkSZqvvk",
-  authDomain: "auth-45438.firebaseapp.com",
-  projectId: "auth-45438",
-  storageBucket: "auth-45438.appspot.com",
-  messagingSenderId: "803246495829",
-  appId: "1:803246495829:web:4ae7914f609c41404d9cdc",
-  measurementId: "G-RLFPR07Q4Y"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyB8U6hOvr6QP9DSDKxMQ5qIiIEhjdbjxPc",
+    authDomain: "authetication-85c4d.firebaseapp.com",
+    projectId: "authetication-85c4d",
+    storageBucket: "authetication-85c4d.firebasestorage.app",
+    messagingSenderId: "379031153136",
+    appId: "1:379031153136:web:8acfbcace6d0d165761535",
+    measurementId: "G-EXK9PS7409"
+  };
 
+  // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const analytics = getAnalytics(app);
 const Analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
 
