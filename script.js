@@ -16,7 +16,7 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const Analytics = getAnalytics(app);
-const provider = new GoogleAuthProvider();
+const provider = newGoogleAuthProvider();
 
 // Sign Up
 document.getElementById("signup-btn")?.addEventListener("click", (e) => {
